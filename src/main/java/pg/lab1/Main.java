@@ -6,25 +6,29 @@ import java.util.TreeSet;
 
 public class Main {
     public static void main(String[] args) {
-        Set<Mage> submages = new TreeSet<>();
-        submages.add(new Mage("submage1", 1, 1.2, null));
-        submages.add(new Mage("submage4", 4, 1.2, null));
-        submages.add(new Mage("submage3", 2, 3.2, null));
-        submages.add(new Mage("submage2", 5, 2.2, null));
+        Set<Mage> dragonborn = new HashSet<>();
+        dragonborn.add(new Mage("Dragonborn pre Winterhold quest", 1, 1, null));
 
-        Set<Mage> asubmages = new TreeSet<>((Mage m1, Mage m2) -> m1.compare(m1,m2));
-        asubmages.add(new Mage("submage3", 1, 1.2, null));
-        asubmages.add(new Mage("submage2", 4, 1.2, null));
-        asubmages.add(new Mage("submage1", 2, 3.2, null));
-        asubmages.add(new Mage("submage4", 5, 2.2, null));
+        Set<Mage> students = new TreeSet<>(new Mage());
+        students.add(new Mage("J'zargo", 1, 1.2, dragonborn));
+        students.add(new Mage("Onmund", 4, 1.2, null));
+        students.add(new Mage("Brelyna Maryon", 2, 3.2, null));
 
 
-        Set<Mage> mages = new HashSet<Mage>();
-        mages.add(new Mage("mage1", 1, 1.2, asubmages));
-        mages.add(new Mage("mage2", 4, 1.2, null));
-        mages.add(new Mage("mage3", 2, 3.2, submages));
-        mages.add(new Mage("mage4", 5, 2.2, null));
-        Mage mage = new Mage("Gandalf", 10, 12.1, mages);
-        System.out.println(mage);
+        Set<Mage> scholars = new TreeSet<>();
+        scholars.add(new Mage("Tolfdir", 1, 1.2, null));
+        scholars.add(new Mage("Colette Marence", 4, 1.2, null));
+        scholars.add(new Mage("Faralda", 2, 3.2, students));
+        scholars.add(new Mage("Drevis Neloren", 5, 2.2, null));
+
+        Set<Mage> masters = new HashSet<Mage>();
+        masters.add(new Mage("Mirabelle Ervine", 1, 1.2, scholars));
+        masters.add(new Mage("master 2", 4, 1.2, null));
+
+        Mage grandmaster = new Mage("Savos Aren", 10, 12.1, masters);
+        System.out.println(grandmaster.printApprentices());
+
+
+        System.out.println(grandmaster.descendents());
     }
 }
