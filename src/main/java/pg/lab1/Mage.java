@@ -1,26 +1,22 @@
 package pg.lab1;
-import jdk.jfr.Unsigned;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Set;
-public class Mage implements Comparable, Comparator<Mage> {
+public class Mage implements Comparable {
     private String name;
     private int level;
     private double power;
     private Set<Mage> apprentices;
     private int depth;
-    public Mage(String _name, int _level, double _power, Set<Mage> _apprentices) {
-        name = _name;
-        level = _level;
-        power = _power;
-        apprentices = _apprentices;
+    public Mage(String name, int level, double power, Set<Mage> apprentices) {
+        this.name = name;
+        this.level = level;
+        this.power = power;
+        this.apprentices = apprentices;
         updateDeph();
         depth = 0;
     }
-    public Mage() {}
-
     public HashMap<Mage, Integer> descendents() {
         HashMap<Mage, Integer> mages = new HashMap<Mage, Integer>();
         int numberOfApprentices = 0;
@@ -43,15 +39,6 @@ public class Mage implements Comparable, Comparator<Mage> {
             }
     }
     @Override
-    public int compare(Mage mage1, Mage mage2) {
-        if (mage1.level != mage2.level)
-            return Integer.compare(mage1.level, mage2.level);
-        else if (!mage1.equals(mage2.name))
-            return mage1.name.compareTo(mage2.name);
-        else return Double.compare(mage1.power, mage2.power);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -69,7 +56,7 @@ public class Mage implements Comparable, Comparator<Mage> {
         try {
             Mage mage = (Mage) o;
             if (!name.equals(mage.name))
-                return name.compareTo(mage.name);
+                return name.toLowerCase().compareTo(mage.getName().toLowerCase());
             else if (level != mage.level)
                 return Integer.compare(level, mage.level);
             else return Double.compare(power, mage.power);
@@ -94,5 +81,14 @@ public class Mage implements Comparable, Comparator<Mage> {
     @Override
     public String toString() {
         return String.format("Mage{name = '%s', level = '%d', power = '%f'} \n", name, level, power);
+    }
+    public int getLvl(){
+        return level;
+    }
+    public String getName() {
+        return name;
+    }
+    public double getPower() {
+        return power;
     }
 }
